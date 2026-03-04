@@ -1,0 +1,9 @@
+# Private keys - NEVER commit these!
+keys/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+
