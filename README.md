@@ -124,20 +124,20 @@ Before communication begins:
 
 Secure authentication interface implementing Zero Trust login workflow.
 
-![Login](login.png)
+![Login](crypto/login.png)
 
 ---
 
 ## 💬 Secure Messaging Dashboard
 
 Real-time encrypted communication between verified users.
-![Messaging](messaging.png)
+![Messaging](crypto/messaging.png)
 
 ## 📂 Secure Vault
 
 Encrypted file upload and secure cloud storage.
 
-![Vault](vault.png)
+![Vault](crypto/vault.png)
 
 ---
 
