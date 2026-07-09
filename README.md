@@ -1,125 +1,348 @@
-# Zero Trust Secure Messaging Platform
+# 🛡️ Zero Trust Secure Messaging Platform
 
-A complete end-to-end encrypted messaging application with Merkle tree verification and XDH key exchange.
+> A secure messaging platform implementing **Zero Trust Architecture (ZTA)** with **X25519 Key Exchange**, **AES-256-GCM Encryption**, **Merkle Tree Identity Verification**, and **Supabase Cloud Integration** for secure communication and encrypted file sharing.
 
-## Features
+---
 
-- 🔐 **Zero Trust Authentication** - Device context verification
-- 🌳 **Merkle Tree Identity Verification** - Cryptographic proof of identity
-- 🔑 **XDH Key Exchange** - Secure key derivation using X25519
-- 💬 **End-to-End Encrypted Messaging** - Messages encrypted with AES-GCM
-- 📎 **Secure File Transfer** - Encrypted file upload and download
-- 🤝 **Connection Handshake** - Verified connections before messaging
-- ☁️ **Supabase Integration** - Cloud database and authentication
+## 📖 Overview
 
-## Architecture
+Traditional messaging systems trust authenticated users once they log in. This project follows the **Zero Trust Security Model**, where every user, device, and communication request is continuously verified before access is granted.
 
-- **Backend**: Flask API server wrapping the encryption logic
-- **Frontend**: React application with modern UI
-- **Database**: Supabase (PostgreSQL)
-- **Encryption**: X25519 (XDH) + AES-GCM + Merkle Tree verification
+The platform enables users to securely communicate, exchange encrypted files, and establish trusted connections using cryptographic identity verification.
 
-## Setup Instructions
+The project combines modern cryptographic techniques with cloud storage to ensure confidentiality, integrity, and authenticated communication.
 
-### Prerequisites
+---
 
-- Python 3.8+
-- Node.js 18+
-- Supabase account and project
+## ✨ Key Features
 
-### Backend Setup
+### 🔐 Zero Trust Authentication
 
-1. Install Python dependencies:
+- Continuous identity verification
+- Secure login workflow
+- Device context validation
+- Trust-based access control
+
+---
+
+### 🌳 Merkle Tree Identity Verification
+
+- Cryptographic identity proofs
+- Tamper-resistant verification
+- Secure user authentication
+- Prevents identity spoofing
+
+---
+
+### 🔑 X25519 (XDH) Secure Key Exchange
+
+- Diffie-Hellman Key Exchange
+- Forward Secrecy
+- Shared secret generation
+- Secure session establishment
+
+---
+
+### 💬 End-to-End Encrypted Messaging
+
+- AES-256-GCM encryption
+- Authenticated encryption
+- Message confidentiality
+- Integrity verification
+
+---
+
+### 📂 Secure File Vault
+
+- Encrypted file upload
+- Secure cloud storage
+- File download & decryption
+- Protected document sharing
+
+---
+
+### 🤝 Secure Connection Handshake
+
+Before communication begins:
+
+- User Identity Verification
+- Merkle Tree Validation
+- Trust Score Verification
+- Secure Session Creation
+
+---
+
+### ☁️ Supabase Integration
+
+- PostgreSQL Database
+- User Authentication
+- Secure Cloud Storage
+- REST API Communication
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                    React Frontend
+                          │
+                          ▼
+                   Flask REST API
+                          │
+        ┌─────────────────┼─────────────────┐
+        │                 │                 │
+   X25519 Key        Merkle Tree       AES-256-GCM
+     Exchange         Verification      Encryption
+        │                 │                 │
+        └─────────────────┼─────────────────┘
+                          │
+                    Supabase Cloud
+           (Auth + Database + Storage)
+```
+
+---
+
+# ⚙️ Tech Stack
+
+| Category | Technology |
+|-----------|------------|
+| Frontend | React + Vite |
+| Backend | Flask |
+| Database | PostgreSQL (Supabase) |
+| Authentication | Supabase Auth |
+| Cryptography | X25519 (XDH) |
+| Encryption | AES-256-GCM |
+| Identity Verification | Merkle Tree |
+| Cloud Storage | Supabase Storage |
+| Programming Languages | Python, JavaScript |
+
+---
+
+# 📸 Project Screenshots
+
+## 🔐 Login Interface
+
+Secure authentication interface implementing Zero Trust login workflow.
+
+![Login](login.png)
+
+---
+
+## 💬 Secure Messaging Dashboard
+
+Real-time encrypted communication between verified users.
+![Messaging](messaging.png)
+
+## 📂 Secure Vault
+
+Encrypted file upload and secure cloud storage.
+
+![Vault](vault.png)
+
+---
+
+
+# 🚀 Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/Kartikpatel1202/Zero-Trust-Application-Security-System.git
+
+cd Zero-Trust-Application-Security-System/crypto
+```
+
+---
+
+# Backend Setup
+
+Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Configure environment variables in `.env`:
-```
+Create a `.env` file
+
+```env
 SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_key
+SUPABASE_KEY=your_service_role_key
 ```
 
-3. Start the Flask server:
+Run the backend
+
 ```bash
 cd backend
+
 python app.py
 ```
 
-The backend will run on `http://localhost:5000`
+Backend Server
 
-### Frontend Setup
+```
+http://127.0.0.1:5000
+```
 
-1. Install Node dependencies:
+---
+
+# Frontend Setup
+
 ```bash
 cd frontend
+
 npm install
-```
 
-2. Configure environment variables (optional, defaults are set):
-Create `frontend/.env`:
-```
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-The frontend will run on `http://localhost:3000`
+Frontend
 
-### Supabase Database Schema
+```
+http://localhost:3000
+```
 
-Make sure your Supabase project has these tables:
+---
 
-**users**:
-- id (uuid, primary key)
-- username (text, unique)
-- public_key_hex (text)
-- merkle_leaf_hash (text)
-- trust_score (integer)
+# Database Schema
 
-**connections**:
-- id (uuid, primary key)
-- requester_username (text)
-- receiver_username (text)
-- status (text) - 'pending_verification' or 'verified'
+### Users
 
-**messages**:
-- id (uuid, primary key)
-- sender_username (text)
-- recipient_username (text)
-- ciphertext_b64 (text)
-- nonce_b64 (text)
-- timestamp_b64 (text)
+| Field | Type |
+|-------|------|
+| id | UUID |
+| username | TEXT |
+| public_key_hex | TEXT |
+| merkle_leaf_hash | TEXT |
+| trust_score | INTEGER |
 
-## Usage
+---
 
-1. **Register/Login**: Create an account or login with Supabase
-2. **Find Users**: Browse available users in the "Find Users" tab
-3. **Request Connection**: Send a connection request to another user
-4. **Accept Connection**: Accept pending connection requests
-5. **Start Messaging**: Once connected, send encrypted messages and files
+### Connections
 
-## Security Features
+| Field | Type |
+|-------|------|
+| id | UUID |
+| requester_username | TEXT |
+| receiver_username | TEXT |
+| status | TEXT |
 
-- All messages are encrypted end-to-end using AES-GCM
-- Keys are derived from XDH shared secrets + Merkle root + timestamp
-- Merkle tree proofs verify user identity before connections
-- Zero Trust authentication checks device context
-- Files are encrypted before transmission
+Status
 
-## Development
+- pending_verification
+- verified
 
-The system uses your existing encryption logic:
-- `core/crypto_utils.py` - XDH key exchange and AES-GCM encryption
-- `core/merkle.py` - Merkle tree for identity verification
-- `core/blockchain.py` - Blockchain ledger for root storage
-- `network/server.py` - ZTA server logic
-- `network/client.py` - Secure client implementation
+---
 
-## License
+### Messages
 
-MIT
+| Field | Type |
+|-------|------|
+| id | UUID |
+| sender_username | TEXT |
+| recipient_username | TEXT |
+| ciphertext_b64 | TEXT |
+| nonce_b64 | TEXT |
+| timestamp_b64 | TEXT |
+
+---
+
+# 🔄 Workflow
+
+```
+User Login
+      │
+      ▼
+Identity Verification
+      │
+      ▼
+Merkle Tree Proof
+      │
+      ▼
+X25519 Key Exchange
+      │
+      ▼
+AES-GCM Session Key
+      │
+      ▼
+Secure Communication
+      │
+      ▼
+Encrypted Cloud Storage
+```
+
+---
+
+# 📂 Project Structure
+
+```
+crypto
+│
+├── backend/
+│
+├── frontend/
+│
+├── interface/
+│
+├── core/
+│
+├── network/
+│
+├── database/
+│
+├── utils/
+│
+├── app.py
+│
+├── requirements.txt
+│
+└── README.md
+```
+
+---
+
+# 🔒 Security Features
+
+✔ Zero Trust Authentication
+
+✔ X25519 Key Exchange
+
+✔ AES-256-GCM Encryption
+
+✔ Merkle Tree Identity Verification
+
+✔ Secure Session Establishment
+
+✔ Encrypted File Storage
+
+✔ Secure Cloud Database
+
+✔ Protected REST APIs
+
+---
+
+# 📈 Future Enhancements
+
+- Group Messaging
+- Multi-Factor Authentication
+- Real-Time WebSocket Communication
+- Voice & Video Calls
+- Mobile Application
+- Push Notifications
+- Multi-Device Synchronization
+- End-to-End Encrypted Backup
+
+---
+
+# 👨‍💻 Author
+
+**Kartik Patel**
+
+B.Tech Computer Science Engineering
+
+VIT Chennai
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving the repository a **Star ⭐**.
